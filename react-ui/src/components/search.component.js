@@ -69,7 +69,7 @@ export default class IngredientList extends Component {
         // axios.post('http://localhost:5000/search', list)
         
         axios.post(isDev? 'http://localhost:5000/search'
-                        : 'http://youtube-recipe-finder.herokuapp.com/search',
+                        : 'https://youtube-recipe-finder.herokuapp.com/search',
                         list)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
