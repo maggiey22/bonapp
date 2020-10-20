@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
+import Ingredient from './Ingredient';
 import axios from 'axios';
 
-const isDev = process.env.NODE_ENV !== 'production';
+// const isDev = process.env.NODE_ENV !== 'production';
 
-/* class Item extends Component {
+export default class IngredientList extends Component {
+    /*
     constructor(props) {
         super(props);
 
-        this.state = {name: ''};
+        this.state = {ingredients: []};
+    }
+    */
+
+    deleteAllIngredients = () => {
+        
     }
     // i think i need a child component here
 
     render() {
+        return this.props.ingredients.map((ingredient) => (
+            <Ingredient id={ingredient.id} key={ingredient.id} ingredient={ingredient} deleteIngredient={this.props.deleteIngredient} />
+        ));
+    }
+
+}
+
+/*
+render() {
         return (
             <input type="text"
                 required
@@ -23,7 +39,7 @@ const isDev = process.env.NODE_ENV !== 'production';
         );
     }
 
-} */
+
 
 export default class IngredientList extends Component {
 
@@ -106,3 +122,4 @@ export default class IngredientList extends Component {
         )
     }
 }
+*/
