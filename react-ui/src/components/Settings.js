@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class Results extends Component {
+export default class Settings extends Component {
     render() {
         return (
             <div>
-                <p>You are on the Results component!</p>
+                <p>You are on the Settings component!</p>
             </div>
         )
     }
