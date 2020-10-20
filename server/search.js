@@ -6,10 +6,8 @@ const until = require('async/until');
 // https://dev.to/isalevine/three-ways-to-retrieve-json-from-the-web-using-node-js-3c88
 // use second answer's procedure 
 // https://stackoverflow.com/questions/18953499/youtube-api-to-fetch-all-videos-on-a-channel/27872244#27872244
-// const API_KEY = 'noooooo dont look at this xD';
-const API_KEY = 'AIzaSyBPnXADf8mBifUT3rGW264lCeoorisUeao';
+const API_KEY = '';
 
-// currently only works for one channel :') need to do a nested until maybe?
 const SAMPLE_CHANNEL_IDS = [
     'UC84Zkx_92divh3h4sKXeDew', //seodam (125)
     // 'UCKetFmtqdh-kn915crdf72A' //Nino's Home (~25)

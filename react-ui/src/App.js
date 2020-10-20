@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import ls from 'local-storage';
+
 import './App.css';
+import eggy from './eggy.png';
 
 /*
 Cooking Tree https://www.youtube.com/channel/UCtby6rJtBGgUm-2oD_E7bzw
@@ -22,19 +25,119 @@ adam rag https://www.youtube.com/channel/UC9_p50tH3WmMslWRWKnM7dQ
 
 */
 
-import Navbar from './components/navbar.component';
-import IngredientList from './components/search.component';
-import Results from './components/results.component';
+import Navbar from './components/Navbar';
+import AddIngredient from './components/AddIngredient';
+import IngredientList from './components/IngredientList';
+import Recipes from './components/Recipes';
+import Settings from './components/Settings';
+import About from './components/About';
 
 const Page_404 = props => (
   <div>
-    <h3>404 Page Not Found!</h3>
-    <Link to="/">Search</Link>
+    <h3>404: Page Not Found</h3>
+    <Link to="/">Back to Search</Link>
   <script>
     {window.location = "/"}
   </script>
   </div>
 );
+
+class App extends Component {
+  state = {
+    counter: 0,
+    ingredients: []
+  }
+
+  addIngredient = (name) => {
+    const newIngredient = {
+      id: this.state.counter,
+      name
+    }
+    const nextIngredients = [...this.state.ingredients, newIngredient];
+
+    this.setState({
+      counter: this.state.counter + 1,
+      ingredients: nextIngredients
+    });
+
+    ls.set('counter', this.state.counter + 1);
+    ls.set('ingredients', nextIngredients);
+  }
+
+  deleteIngredient = (id) => {
+    const nextState = {
+      ...this.state,
+      ingredients: this.state.ingredients.filter(ingred => ingred.id !== id)
+    };
+    this.setState(nextState);
+    ls.set('ingredients', nextState.ingredients);
+    /*
+    this.setState(prevState => ({
+      ...prevState,
+      ingredients: prevState.ingredients.filter(ingred => ingred.id !== id)
+    }));
+    */
+  }
+
+  componentDidMount() {
+    this.setState({
+      counter: ls.get('counter') || 0,
+      ingredients: ls.get('ingredients') || [],
+      channels: ls.get('channels') || [],
+    });
+  }
+
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <div className="App-header">
+            <Link to="/" className="App-homelink">
+              <img src={eggy} alt="Eggy logo!" className="App-logo"/>
+              YouTube Recipe Finder
+            </Link>
+          </div>
+          <div className="tabs">
+            <Navbar activeTab={window.location.pathname}/>
+            <div className="file-bkgd">
+              <Switch>
+                <Route path="/" exact render={() => (
+                    <React.Fragment>
+                      <AddIngredient add={this.addIngredient}/>
+                      <IngredientList ingredients={this.state.ingredients} deleteIngredient={this.deleteIngredient}/> 
+                    </React.Fragment>)}
+                />
+                <Route path="/recipes" exact component={Recipes} />
+                <Route path="/settings" exact component={Settings} />
+                <Route path="/about" exact component={About} />
+                <Route component={Page_404} />
+              </Switch>
+            </div>
+          </div>
+        </div>
+      </Router>
+    )
+  }
+}
+
+export default App;
+
+
+/*
+
+state = {
+    counter: 2,
+    ingredients: [
+      {
+        id: 0,
+        name: 'Egg'
+      },
+      {
+        id: 1,
+        name: 'Milk'
+      }
+    ]
+  }
 
 function App() {
   return (
@@ -51,5 +154,4 @@ function App() {
     </Router>
   );
 }
-
-export default App;
+*/

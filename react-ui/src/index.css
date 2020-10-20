@@ -1,3 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+body {
+  margin: 50px;
+  margin-left: 250px;
+  margin-right: 250px;
+  padding: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #F9D481;
+  align-items: center;
+  text-align: center;
+}
+
+/* ???????? */
+/* .active {
+  background: #E7E0CE;
+} */
+
+/*
+@import url('https://fonts.google.com/specimen/Nunito?selection.family=Nunito');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Nunito;
+  font-style: normal;
+  align-items: center;
+  text-align: center;
+
+  color: #515151;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p + p {
+  margin-top: 0;
+}
+
+
+
 body {
   margin: 0;
   padding: 0;
@@ -16,3 +58,5 @@ code {
 p + p {
   margin-top: 0;
 }
+
+*/
