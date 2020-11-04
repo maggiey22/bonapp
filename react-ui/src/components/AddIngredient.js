@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './AddIngredient.css';
+
 export default class AddIngredient extends Component {
     state = { name: '' };
 
@@ -21,18 +23,23 @@ export default class AddIngredient extends Component {
     render() {
         return (
             <form onSubmit={this.onSubmit}>
-                <input
-                    autoFocus
-                    type="text"
-                    name="name"
-                    placeholder="Add Ingredient"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                />
-                <input
-                    type="submit"
-                    value="Submit"
-                />
+                <span>
+                    <input
+                        className="text-field"
+                        autoFocus
+                        type="text"
+                        name="name"
+                        placeholder="Add an item..."
+                        value={this.state.name}
+                        onChange={this.onChange}
+                    />
+                    {/* TODO: css for extra buttons
+                        <input
+                        className="add-btn"
+                        type="submit"
+                        value="+"
+                    /> */}
+                </span>
             </form>
         )
     }
