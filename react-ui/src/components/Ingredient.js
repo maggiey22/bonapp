@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+
+import './Ingredient.css';
 
 export default class Ingredient extends Component {
     
@@ -12,7 +14,7 @@ export default class Ingredient extends Component {
         const { name } = this.props.ingredient;
         
         return (
-            <div>
+            <div className="item">
                 <button onClick={this.deleteIngredient}>X</button>
                 {name}
             </div>

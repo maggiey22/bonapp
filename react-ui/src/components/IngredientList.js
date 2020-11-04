@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Ingredient from './Ingredient';
-import axios from 'axios';
+// import axios from 'axios';
 
 // const isDev = process.env.NODE_ENV !== 'production';
 
@@ -19,9 +19,17 @@ export default class IngredientList extends Component {
     // i think i need a child component here
 
     render() {
-        return this.props.ingredients.map((ingredient) => (
+        // return this.props.ingredients.map((ingredient) => (
+        //     <Ingredient id={ingredient.id} key={ingredient.id} ingredient={ingredient} deleteIngredient={this.props.deleteIngredient} />
+        // ));
+
+        return (
+        <div>
+        {this.props.ingredients.map((ingredient) =>
             <Ingredient id={ingredient.id} key={ingredient.id} ingredient={ingredient} deleteIngredient={this.props.deleteIngredient} />
-        ));
+        )}
+        </div>
+        );
     }
 
 }
