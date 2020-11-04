@@ -102,10 +102,23 @@ class App extends Component {
             <div className="file-bkgd">
               <Switch>
                 <Route path="/" exact render={() => (
-                    <React.Fragment>
-                      <AddIngredient add={this.addIngredient}/>
-                      <IngredientList ingredients={this.state.ingredients} deleteIngredient={this.deleteIngredient}/> 
-                    </React.Fragment>)}
+                    <div className="search">
+                      <div className="col left-col">
+                        <React.Fragment>
+                          <div className="abc">
+                          <AddIngredient add={this.addIngredient}/>
+                          </div>
+                          <div className="list">
+                            <IngredientList ingredients={this.state.ingredients} deleteIngredient={this.deleteIngredient}/> 
+                          </div>
+                        </React.Fragment>
+                      </div>
+                      <div className="col right-col">
+                        <p><br></br><br></br>Find recipes for the ingredients you already have!</p>
+                        <button>Find recipes</button>
+                      </div>
+                    </div>
+                    )}
                 />
                 <Route path="/recipes" exact component={Recipes} />
                 <Route path="/settings" exact component={Settings} />

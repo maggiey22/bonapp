@@ -1,13 +1,14 @@
 .navbar {
     font-size: 25px;
+    font-weight: 600;
 }
 
 .tab {
     background: #D8D0BF;
     margin: 5px;
     padding-top: 4px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 35px;
+    padding-right: 35px;
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

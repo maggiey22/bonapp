@@ -1,0 +1,30 @@
+.text-field {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #515151;
+    width: 93%;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #F5F5F5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-width: 0px;
+}
+
+/* .add-btn {
+    font-size: 30px;
+    margin-left: -30px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    color: red;
+} */
+
+/* input:focus {
+    outline: none !important;
+    border: 1px solid red;
+} */
