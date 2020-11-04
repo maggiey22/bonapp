@@ -1,10 +1,16 @@
+/* TODO - code cleanup - remove unused css, unused id's
+(+ unneeded css - e.g. font defined here, don't need it elsewhere) */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+/* TODO - performance impact of '*' */
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
 body {
   margin: 20px;
   margin-left: 220px;
   margin-right: 220px;
   padding: 10px;
-  font-family: 'Nunito', sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

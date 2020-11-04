@@ -1,3 +1,8 @@
+/* TODO - use portable css (cross-browser friendly) aka no magic css numbers :') */
+/* TODO - code cleanup - reorder css classes in logical order */
+/* TODO - convert some css classes to id's where id is sufficient */
+/* TODO - accessibility */
+
 .App {
   text-align: center;
 }
@@ -7,42 +12,52 @@
   padding-top: 20px;
 }
 
-.abc {
-  width: 100%;
-}
-
+/* this didn't work :[] probably because css needs to override here
 #abc .text-field {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  color: #515151;
-  width: 93%;
-  height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: #F5F5F5;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-width: 0px;
-}
+  ...
+} */
 
 .list {
-  /* background: url("list-bkgd.png"); */
+  /* stripes! */
   background: repeating-linear-gradient(
   0deg,
   #A3D5E4,
-  #A3D5E4 5px,
-  #F5F5F5 5px,
-  #F5F5F5 40px
+  #A3D5E4 3px,
+  #F5F5F5 3px,
+  #F5F5F5 33px
 );
-  /* background: repeating-linear-gradient(0deg, #A3D5E4, #A3D5E4 10px, #F5F5F5 20px, #F5F5F5 40px); */
   background-size: 100%;
-  /* background-repeat: repeat-x; */
-  /* background-size: cover; */
   min-height: 300px;
   width: 100%;
   max-height: 300px;
   overflow: scroll;
+}
+
+.right-col {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+#instructions { 
+  text-align: center;
+  color: #515151;
+}
+
+.pg1-btn {
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
+  background: #A3D5E4;
+  border-radius: 15px;
+  width: 200px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  margin-bottom: 10px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.pg1-btn:hover {
+  background: #bbe1ec;
 }
 
 .file-bkgd {
@@ -51,8 +66,6 @@
   z-index: -3;
   background: #E7E0CE;
   border-radius: 24px;
-  /* flex: 1; */
-  /* width: 550px; */
   min-width: 600px;
   height: 380px;
 }
@@ -61,21 +74,7 @@
   display: flex;
 }
 
-.col {
-  flex: 50%;
-  width: 50%;
-}
-
-.left-col {
-  
-}
-
-.right-col {
-
-}
-
 .App-header {
-  /* margin: auto; */
   padding-bottom: 12px;
 }
 

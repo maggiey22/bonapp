@@ -1,4 +1,20 @@
+/* TODO - code cleanup - tabs uneven */
 .item {
-    height: 48px;
+    line-height: 30px;
     font-size: 24px;
+}
+
+.delete-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin-right: 5px;
+    color: #C95652;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #F56D68;
 }
