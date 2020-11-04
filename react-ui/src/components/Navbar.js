@@ -8,7 +8,7 @@ export default class Navbar extends Component {
 
     //isActive={this.isActive('/')}
     render() {
-        // console.log(this.props.activeTab); todo - why does it print twice consec'ly?
+        // console.log(this.props.activeTab); TODO - why does it print twice consecutively?
         return (
             <nav className="navbar">
                 <span><NavLink className="tab" activeClassName="active-tab" exact to="/">Search</NavLink></span>

@@ -15,7 +15,7 @@ export default class Ingredient extends Component {
         
         return (
             <div className="item">
-                <button onClick={this.deleteIngredient}>X</button>
+                <button className="delete-btn" onClick={this.deleteIngredient}>X</button>
                 {name}
             </div>
         )

@@ -29,11 +29,11 @@ export default class AddIngredient extends Component {
                         autoFocus
                         type="text"
                         name="name"
-                        placeholder="Add an item..."
+                        placeholder="Add an ingredient..."
                         value={this.state.name}
                         onChange={this.onChange}
                     />
-                    {/* TODO: css for extra buttons
+                    {/* TODO - css for extra buttons
                         <input
                         className="add-btn"
                         type="submit"

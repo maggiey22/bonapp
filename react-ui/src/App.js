@@ -79,6 +79,15 @@ class App extends Component {
     */
   }
 
+  deleteAllIngredients = () => {
+    const nextState = {
+      counter: 0,
+      ingredients: []
+    }
+    this.setState(nextState);
+    ls.set('ingredients', nextState.ingredients);
+  }
+
   componentDidMount() {
     this.setState({
       counter: ls.get('counter') || 0,
@@ -104,18 +113,25 @@ class App extends Component {
                 <Route path="/" exact render={() => (
                     <div className="search">
                       <div className="col left-col">
+                        {/* TODO - refactor to have this react fragment in IngredientList instead (?)
+                        I think there may be some issues with styling because some css is split up
+                        e.g. 100% width on input overflows the left column div :/
+                        */}
                         <React.Fragment>
-                          <div className="abc">
                           <AddIngredient add={this.addIngredient}/>
-                          </div>
                           <div className="list">
                             <IngredientList ingredients={this.state.ingredients} deleteIngredient={this.deleteIngredient}/> 
                           </div>
                         </React.Fragment>
                       </div>
-                      <div className="col right-col">
-                        <p><br></br><br></br>Find recipes for the ingredients you already have!</p>
-                        <button>Find recipes</button>
+                      <div id="instructions" className="col right-col">
+                        {/* TODO - fix formatting without brrrr */}
+                        <p>Find recipes for the ingredients you already have!</p>
+                        <div>
+                          <button className="pg1-btn" id="search-btn">Search</button>
+                          <br></br>
+                          <button className="pg1-btn" id="clear-btn" onClick={this.deleteAllIngredients}>Clear list</button>
+                        </div>
                       </div>
                     </div>
                     )}
