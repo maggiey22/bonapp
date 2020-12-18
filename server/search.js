@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const router = require('express').Router();
 const fetch = require('node-fetch');
 // const whilst = require('async/whilst');
@@ -6,13 +8,14 @@ const until = require('async/until');
 // https://dev.to/isalevine/three-ways-to-retrieve-json-from-the-web-using-node-js-3c88
 // use second answer's procedure 
 // https://stackoverflow.com/questions/18953499/youtube-api-to-fetch-all-videos-on-a-channel/27872244#27872244
-const API_KEY = '';
+const API_KEY = process.env.TOKEN;
 
 const SAMPLE_CHANNEL_IDS = [
     'UC84Zkx_92divh3h4sKXeDew', //seodam (125)
     // 'UCKetFmtqdh-kn915crdf72A' //Nino's Home (~25)
 ];
-const TEST_ITEMS = ["green tea", "chocolate"];
+// const TEST_ITEMS = ["green tea", "chocolate"];
+// const TEST_ITEMS = ["egg", "sugar", "butter", "milk"];
 
 // String -> String
 // Stuff channelID into query string for "Uploads" playlist for given channel
@@ -26,7 +29,7 @@ function getQueryString(channelID, pageToken) {
     if (pageToken !== '') {
         queryString += `&pageToken=${pageToken}`;
     }
-    
+
     return queryString;
 }
 
@@ -169,7 +172,7 @@ router.route('/').post((req, res) => {
                 console.log("Success!");
                 // res.json(answers); // res.status(200).json(answers);
                 answers = collapseAndNeaten(answers);
-                res.json(search(answers, TEST_ITEMS));
+                res.json(search(answers, items));
             }
         }
     );
