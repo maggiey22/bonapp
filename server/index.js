@@ -4,11 +4,25 @@ const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
+const path = require('path');
+const fs = require("fs");
+// const liteYTembedCSS = require('./lite-yt-embed.css');
+
 app.use(cors());
 app.use(express.json()); // parse json
 
 // Priority serve any static files.
 // app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+
+app.get('/supersecretcssendpoint', (req, res) => {
+  res.set('Content-Type', 'text/css');
+  // const css = fs.readFileSync("./lite-yt-embed.css");
+  console.log(path.resolve(__dirname, './lite-yt-embed.css'));
+  const css = fs.readFileSync(path.resolve(__dirname, './lite-yt-embed.css'));
+  // console.log(css);
+  res.send(css);
+  // res.send(`{"message":"Hello world!", "items": ${req.}}`);
+});
 
 // Answer API requests.
 /* app.get('/api', function (req, res) {

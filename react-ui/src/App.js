@@ -80,7 +80,7 @@ class App extends Component {
   deleteIngredient = (id) => {
     const nextState = {
       ...this.state,
-      counter: this.state.counter - 1,
+      // counter: this.state.counter - 1, -> never decrementing the counter should temporarily fix the id issue
       ingredients: this.state.ingredients.filter(ingred => ingred.id !== id)
     };
     this.setState(nextState);
@@ -107,13 +107,17 @@ class App extends Component {
   }
 
   search = () => {
-    // TODO - make naming more consistent - ingredients, items, etc.
+    if (ls.get('ingredients').length === 0) {
+      alert("Nothing to search for.");
+      return null;
+    }
     const body = {
       items: this.state.ingredients,
-      channels: ['UC84Zkx_92divh3h4sKXeDew', 'UCK27TX8CB0yFnXPNZRbIK5g']
+      channels: ['UC84Zkx_92divh3h4sKXeDew', 'UCK27TX8CB0yFnXPNZRbIK5g'] // use cheetos egg mozzarella flour to test
     }
-    console.log(JSON.parse(JSON.stringify(body.items)))
-    axios.post(`${BASE_SERVER_URL}/search`, body)
+    // console.log(JSON.parse(JSON.stringify(body.items)))
+    // axios.post(`${BASE_SERVER_URL}/search`, body)
+    axios.post(`${BASE_SERVER_URL}/search/dummydata`, body)
       .then(res => {
         const nextState = {
           results: res.data,

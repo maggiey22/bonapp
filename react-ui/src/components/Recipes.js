@@ -12,12 +12,17 @@ function Recipes(props) {
 
     return (
         <div className="container">
+            {/* <link rel="stylesheet" href="../../node_modules/lite-youtube-embed/src/lite-yt-embed.css" /> */}
+            <script src="../../node_modules/lite-youtube-embed/src/lite-yt-embed.js"></script>
             <div className="col left-col">
                 {results.length} results found.
                 {results.map((vid) =>
-                    <div className="video" key={vid.id}>
+                    // <div className="video" key={vid.id}>
+                    <div key={vid.id}>
                         <button className="button" onClick={() => setText(`${vid.desc}`)}>?</button>
-                        <iframe title="Video title here" width="276" height="156" frameBorder="0" src={`https://www.youtube.com/embed/${vid.id}`} allow="encrypted-media" allowFullScreen></iframe>
+                        {/* <iframe title="Video title here" width="276" height="156" frameBorder="0" src={`https://www.youtube.com/embed/${vid.id}`} allow="encrypted-media" allowFullScreen></iframe> */}
+                        {/* params="width=276&height=156&frameBorder=0" */}
+                        <lite-youtube videoid={vid.id}></lite-youtube>
                     </div>)}
             </div>
                 <div className="col right-col">
