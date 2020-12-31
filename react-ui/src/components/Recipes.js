@@ -3,8 +3,8 @@ import ls from 'local-storage';
 
 import './Recipes.css';
 
-function Recipes(props) {
-    const [results, setResults] = useState(ls.get('results'));
+function Recipes() {
+    const [results] = useState(ls.get('results'));
     // const displayText = useRef('Select a video to see ingredients.'); // this is wrong since we do want it to re-render when its state changes
     const [text, setText] = useState(`Click on ? to see ingredients.`);
 

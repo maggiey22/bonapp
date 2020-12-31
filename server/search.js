@@ -52,8 +52,7 @@ function collapseAndNeaten(channelData) {
 function search(videos, items) {
     let filteredVideos = videos;
     items.forEach(item => {
-        // filteredVideos = filteredVideos.filter(video => video.desc.indexOf(item) != -1);
-        filteredVideos = filteredVideos.filter(video => video.desc.indexOf(item.name) != -1);
+        filteredVideos = filteredVideos.filter(video => video.desc.toLowerCase().indexOf(item.name.toLowerCase()) != -1);
     });
     return filteredVideos;
 }
