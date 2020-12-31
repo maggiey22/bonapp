@@ -1,8 +1,6 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 
-// const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
 const app = express();
 
@@ -10,7 +8,7 @@ app.use(cors());
 app.use(express.json()); // parse json
 
 // Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+// app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
 // Answer API requests.
 /* app.get('/api', function (req, res) {
@@ -35,9 +33,9 @@ const searchRouter = require('./search');
 app.use('/search', searchRouter);
 
 // All remaining requests return the React app, so it can handle routing.
-app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-});
+// app.get('*', function(request, response) {
+//   response.sendFile(path.resolve(__dirname, '../react-ui/public', 'index.html'));
+// });
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

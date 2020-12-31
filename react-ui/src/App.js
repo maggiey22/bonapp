@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import ls from 'local-storage';
+import axios from 'axios';
 
 import './App.css';
 import eggy from './eggy.png';
@@ -32,6 +33,8 @@ import Recipes from './components/Recipes';
 import Settings from './components/Settings';
 import About from './components/About';
 
+const BASE_SERVER_URL = 'http://localhost:5000'
+
 const Page_404 = props => (
   <div>
     <h3>404: Page Not Found</h3>
@@ -42,10 +45,19 @@ const Page_404 = props => (
   </div>
 );
 
+// TODO - switch to a functional component
 class App extends Component {
   state = {
+    // TODO - switch to uuid since the following flow is buggy:
+    /*
+    add 3 ingredients
+    delete the middle one => counter becomes 2
+    add ingredient => 2 items have the same key
+    */
     counter: 0,
-    ingredients: []
+    ingredients: [],
+    channels: [],
+    results: [],
   }
 
   addIngredient = (name) => {
@@ -55,6 +67,7 @@ class App extends Component {
     }
     const nextIngredients = [...this.state.ingredients, newIngredient];
 
+    // TODO - use prevState instead of this.state since prevState is more accurate
     this.setState({
       counter: this.state.counter + 1,
       ingredients: nextIngredients
@@ -67,9 +80,11 @@ class App extends Component {
   deleteIngredient = (id) => {
     const nextState = {
       ...this.state,
+      counter: this.state.counter - 1,
       ingredients: this.state.ingredients.filter(ingred => ingred.id !== id)
     };
     this.setState(nextState);
+    ls.set('counter', nextState.counter);
     ls.set('ingredients', nextState.ingredients);
     /*
     this.setState(prevState => ({
@@ -82,10 +97,32 @@ class App extends Component {
   deleteAllIngredients = () => {
     const nextState = {
       counter: 0,
-      ingredients: []
+      ingredients: [],
+      results: [],
     }
     this.setState(nextState);
+    ls.set('counter', nextState.counter);
     ls.set('ingredients', nextState.ingredients);
+    ls.set('results', nextState.results);
+  }
+
+  search = () => {
+    // TODO - make naming more consistent - ingredients, items, etc.
+    const body = {
+      items: this.state.ingredients,
+      channels: ['UC84Zkx_92divh3h4sKXeDew', 'UCK27TX8CB0yFnXPNZRbIK5g']
+    }
+    console.log(JSON.parse(JSON.stringify(body.items)))
+    axios.post(`${BASE_SERVER_URL}/search`, body)
+      .then(res => {
+        const nextState = {
+          results: res.data,
+        }
+        console.log(res.data)
+        this.setState(nextState);
+        ls.set('results', nextState.results)
+        window.location = '/recipes';
+      });
   }
 
   componentDidMount() {
@@ -107,7 +144,7 @@ class App extends Component {
             </Link>
           </div>
           <div className="tabs">
-            <Navbar activeTab={window.location.pathname}/>
+            <Navbar activeTab={window.location.pathname} search={this.search}/>
             <div className="file-bkgd">
               <Switch>
                 <Route path="/" exact render={() => (
@@ -128,7 +165,7 @@ class App extends Component {
                         {/* TODO - fix formatting without brrrr */}
                         <p>Find recipes for the ingredients you already have!</p>
                         <div>
-                          <button className="pg1-btn" id="search-btn">Search</button>
+                          <button className="pg1-btn" id="search-btn" onClick={this.search}>Search</button>
                           <br></br>
                           <button className="pg1-btn" id="clear-btn" onClick={this.deleteAllIngredients}>Clear list</button>
                         </div>
