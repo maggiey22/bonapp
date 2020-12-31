@@ -1,70 +1,19 @@
-/* TODO - code cleanup - remove unused css, unused id's
-(+ unneeded css - e.g. font defined here, don't need it elsewhere) */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
-/* TODO - performance impact of '*' */
+
 * {
-  font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 body {
-  margin: 20px;
-  margin-left: 220px;
-  margin-right: 220px;
-  padding: 10px;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #F9D481;
-  /* background-image: linear-gradient(#F9D481, #A4D4E2); */
-  color: #515151;
-  align-items: center;
-  text-align: center;
+    margin: 20px;
+    margin-left: 220px;
+    margin-right: 220px;
+    padding: 10px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #F9D481;
+    color: #515151;
+    align-items: center;
+    text-align: center;
 }
-
-/* ???????? */
-/* .active {
-  background: #E7E0CE;
-} */
-
-/*
-@import url('https://fonts.google.com/specimen/Nunito?selection.family=Nunito');
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Nunito;
-  font-style: normal;
-  align-items: center;
-  text-align: center;
-
-  color: #515151;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-p + p {
-  margin-top: 0;
-}
-
-
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-p + p {
-  margin-top: 0;
-}
-
-*/

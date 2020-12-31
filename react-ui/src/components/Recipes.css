@@ -1,12 +1,8 @@
 .container {
-    /* padding: 30px; */
     height: 380px;
     font-weight: 600;
     font-size: 20px;
-    /* align-items: center; */
     display: flex;
-    /* flex-direction: column; toggling this creates column */
-    /* justify-content: left; */
 }
 
 .col {
@@ -61,8 +57,5 @@
 
 #ingredients {
     margin: 20px;
-    /* padding-left: 20px;
-    padding-right: 20px; */
-    /* padding: 10px; */
     font-size: 15px;
 }
