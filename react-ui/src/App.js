@@ -80,7 +80,6 @@ class App extends Component {
   deleteIngredient = (id) => {
     const nextState = {
       ...this.state,
-      counter: this.state.counter - 1,
       ingredients: this.state.ingredients.filter(ingred => ingred.id !== id)
     };
     this.setState(nextState);
@@ -107,7 +106,11 @@ class App extends Component {
   }
 
   search = () => {
-    // TODO - make naming more consistent - ingredients, items, etc.
+    if (ls.get('ingredients').length === 0) {
+      alert("Nothing to search for.");
+      return null;
+    }
+
     const body = {
       items: this.state.ingredients,
       channels: ['UC84Zkx_92divh3h4sKXeDew', 'UCK27TX8CB0yFnXPNZRbIK5g']
