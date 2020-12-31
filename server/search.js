@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const router = require('express').Router();
 const fetch = require('node-fetch');
-// const whilst = require('async/whilst');
 const until = require('async/until');
 
 // https://dev.to/isalevine/three-ways-to-retrieve-json-from-the-web-using-node-js-3c88
@@ -14,8 +13,6 @@ const SAMPLE_CHANNEL_IDS = [
     'UC84Zkx_92divh3h4sKXeDew', //seodam (125)
     // 'UCKetFmtqdh-kn915crdf72A' //Nino's Home (~25)
 ];
-// const TEST_ITEMS = ["green tea", "chocolate"];
-// const TEST_ITEMS = ["egg", "sugar", "butter", "milk"];
 
 // String -> String
 // Stuff channelID into query string for "Uploads" playlist for given channel
@@ -63,7 +60,8 @@ function collapseAndNeaten(channelData) {
 function search(videos, items) {
     let filteredVideos = videos;
     items.forEach(item => {
-        filteredVideos = filteredVideos.filter(video => video.desc.indexOf(item) != -1);
+        // filteredVideos = filteredVideos.filter(video => video.desc.indexOf(item) != -1);
+        filteredVideos = filteredVideos.filter(video => video.desc.indexOf(item.name) != -1);
     });
     return filteredVideos;
 }
@@ -97,85 +95,118 @@ Doo Piano
 https://www.youtube.com/playlist?list=UUNoN7dpdAlglcQWUn2pFjDA
 */
 
+router.route('/test').get((req, res) => {
+    console.log("hello world!");
+    res.json({
+        name: "Fido",
+        age: 3,
+        breed: "labrador"
+    });
+})
+
+// dummy route for testing
+router.route('/dummydata').post((req, res) => {
+    const items = req.body.items;
+    console.log("testing post");
+    res.json([
+        {
+            id: "_7kPuVRBJtQ",
+            desc: "desc of first vid"
+        },
+        {
+            id: "-VIH-BX7PfE",
+            desc: "desc of second vid"
+        }
+    ]);
+})
+
 router.route('/').post((req, res) => {
     // items: array
     const items = req.body.items;
     
-    console.log("in search.js, received items");
+    console.log(`in search.js, received items: ${JSON.parse(JSON.stringify(items))}`);
     
     // faux res.json(req.body.channels);
-    // const channels = req.body.channels;
-    channels = SAMPLE_CHANNEL_IDS;
+    const channels = req.body.channels;
+    // const channels = SAMPLE_CHANNEL_IDS;
     
     // an array with elements that look like the below example
     let allVideos = [];
 
-    // can't use forEach, have to use asynchronous type
-    // channels.forEach(c => {
+    let channelsProcessed = 0; // https://stackoverflow.com/questions/18983138/callback-after-all-asynchronous-foreach-callbacks-are-completed
+
+    channels.forEach(c => {
     
-    c = SAMPLE_CHANNEL_IDS[0];
+        // c = SAMPLE_CHANNEL_IDS[0];
 
-    let url = getQueryString(c, '');
-    const settings = { method: "GET" };
+        let url = getQueryString(c, '');
+        const settings = { method: "GET" };
 
-    // array of page results
-    let answers = [];
+        // array of page results
+        let answers = [];
 
-    let finished = false;
-    let counter = 0;
-    until (
-        function test(cb) {
-            cb(null, finished);
-        },
-        function iter(next) {
-            console.log("on page" + counter);
-            counter++;
-            fetch(url, settings)
-                // .then(fetchRes => {
-                //     let json = fetchRes.json();
-                .then(fetchRes => fetchRes.json())
-                .then((json) => {
-                    console.log("processing json response...line 109");
-                    const answer = {
-                        nextPageToken:
-                            json.hasOwnProperty('nextPageToken')? json.nextPageToken : '',
-                        results: 
-                            json.hasOwnProperty('items') ? getConciseData(json.items) : []
-                    }
-                    console.log("processing json response...line 115");
+        let finished = false;
+        let counter = 0;
+        until (
+            function test(cb) {
+                cb(null, finished);
+            },
+            function iter(next) {
+                console.log("on page" + counter);
+                counter++;
+                fetch(url, settings)
+                    // .then(fetchRes => {
+                    //     let json = fetchRes.json();
+                    .then(fetchRes => fetchRes.json())
+                    .then((json) => {
+                        console.log("processing json response...line 109");
+                        const answer = {
+                            nextPageToken:
+                                json.hasOwnProperty('nextPageToken')? json.nextPageToken : '',
+                            results: 
+                                json.hasOwnProperty('items') ? getConciseData(json.items) : []
+                        }
+                        console.log("processing json response...line 115");
+                        
+                        // answers.push(answer);
+                        answers = answers.concat(answer);
                     
-                    // answers.push(answer);
-                    answers = answers.concat(answer);
-                
-                    if (answer.nextPageToken === '') {
-                        console.log("processing json response...line 120");
-                        finished = true;
-                        // next(null); // adding this fixed some things
-                        // res.json(answers);
-                        // allVideos.push(answers);
-                        // res.json(allVideos);
-                        // callback(null, answer);
-                    } else {
-                        console.log("processing json response...line 126");
-                        url = getQueryString(c, answer.nextPageToken);
-                        console.log("processing json response...line 135");
+                        if (answer.nextPageToken === '') {
+                            console.log("processing json response...line 120");
+                            finished = true;
+                            // next(null); // adding this fixed some things
+                            // res.json(answers);
+                            // allVideos.push(answers);
+                            // res.json(allVideos);
+                            // callback(null, answer);
+                        } else {
+                            console.log("processing json response...line 126");
+                            url = getQueryString(c, answer.nextPageToken);
+                            console.log("processing json response...line 135");
+                        }
+                        next(); // YES IT FIXED EVERYTHING
+                    });
+            },
+            function done(err) {
+                if (err) {
+                    console.log("Error :(");
+                    res.status(500).json(err);
+                } else {
+                    // allVideos.push(answers);
+                    console.log("Success!");
+                    // res.json(answers); // res.status(200).json(answers);
+                    answers = collapseAndNeaten(answers);
+                    // res.json(search(answers, items));
+                    allVideos = allVideos.concat(search(answers, items));
+                    
+                    if (++channelsProcessed === channels.length) {
+                        res.json(allVideos);
+                        console.log(allVideos);
                     }
-                    next(); // YES IT FIXED EVERYTHING
-                });
-        },
-        function done(err) {
-            if (err) {
-                console.log("Error :(");
-                res.status(500).json(err);
-            } else {
-                // allVideos.push(answers);
-                console.log("Success!");
-                // res.json(answers); // res.status(200).json(answers);
-                answers = collapseAndNeaten(answers);
-                res.json(search(answers, items));
+                }
             }
-        }
-    );
+        );
+    })
     
 });
 
