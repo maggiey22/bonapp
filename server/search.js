@@ -107,16 +107,15 @@ router.route('/test').get((req, res) => {
 
 // dummy route for testing
 router.route('/dummydata').post((req, res) => {
-    const items = req.body.items;
     console.log("testing post");
     res.json([
         {
             id: "_7kPuVRBJtQ",
-            desc: "desc of first vid"
+            desc: "FIRST VID:\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla velit, placerat quis urna eget, euismod tempus sem. Integer nec nulla dapibus, gravida mi in, iaculis augue. Integer tristique laoreet laoreet. Donec porta velit nulla, nec tincidunt quam pellentesque ut. Morbi posuere auctor iaculis. Cras tempus eget leo non ultricies. In hac habitasse platea dictumst. Nulla tempor tortor pulvinar elit blandit vehicula ac at nisi. Cras porta quis ligula rutrum consectetur. Duis nec urna est. Aliquam lectus dolor, facilisis sit amet ante at, varius viverra lacus. Ut in maximus ipsum. Fusce pellentesque, dolor quis finibus accumsan, magna arcu suscipit mauris, non consequat neque dui nec nisl. Quisque vitae quam mi. In ut tristique massa. Donec sit amet mollis eros."
         },
         {
             id: "-VIH-BX7PfE",
-            desc: "desc of second vid"
+            desc: "SECOND VID:\nMorbi tempor aliquet tellus, at ultricies ex ultricies sit amet. Quisque aliquam mollis lectus ut posuere. Suspendisse eu ornare urna. Sed tempor libero sit amet odio convallis, at dignissim lacus ullamcorper. Praesent eros turpis, ornare vitae feugiat in, porta non tellus. Pellentesque tristique, ex eu accumsan pharetra, arcu arcu viverra libero, ut posuere elit massa eget ex. Integer gravida interdum augue, ut tempor enim suscipit a. Quisque convallis ante quis pretium aliquam. Quisque scelerisque viverra iaculis. Ut quis facilisis arcu."
         }
     ]);
 })

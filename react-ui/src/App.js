@@ -115,8 +115,8 @@ class App extends Component {
       items: this.state.ingredients,
       channels: ['UC84Zkx_92divh3h4sKXeDew', 'UCK27TX8CB0yFnXPNZRbIK5g']
     }
-    console.log(JSON.parse(JSON.stringify(body.items)))
-    axios.post(`${BASE_SERVER_URL}/search`, body)
+    // axios.post(`${BASE_SERVER_URL}/search`, body)
+    axios.post(`${BASE_SERVER_URL}/search/dummydata`, body)
       .then(res => {
         const nextState = {
           results: res.data,

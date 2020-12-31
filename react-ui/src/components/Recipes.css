@@ -34,11 +34,21 @@
     display: inline-flex;
 }
 
-.button {
+.info-btn {
     position: relative;
     vertical-align: middle;
-    /* display: block; */
-    /* margin: 0 auto; */
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    background: #A3D5E4;
+    border-radius: 1px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.25));
+}
+
+.info-btn:hover {
+    background: #bbe1ec;
 }
 
 .ingredients-note {
@@ -46,6 +56,7 @@
     overflow: scroll;
     background: #FFEDC5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    white-space: pre-line;
 }
 
 #ingredients {
@@ -53,5 +64,5 @@
     /* padding-left: 20px;
     padding-right: 20px; */
     /* padding: 10px; */
-    font-size: 24px;
+    font-size: 15px;
 }
