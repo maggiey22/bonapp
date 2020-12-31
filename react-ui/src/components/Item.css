@@ -1,10 +1,9 @@
-/* TODO - code cleanup - tabs uneven */
-.item {
+.ingredient {
     line-height: 30px;
     font-size: 24px;
 }
 
-.delete-btn {
+.del-ingred-btn {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     font-size: 20px;
@@ -15,6 +14,6 @@
     cursor: pointer;
 }
 
-.delete-btn:hover {
+.del-ingred-btn:hover {
     color: #F56D68;
 }

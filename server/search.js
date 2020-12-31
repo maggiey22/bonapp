@@ -4,16 +4,7 @@ const router = require('express').Router();
 const fetch = require('node-fetch');
 const until = require('async/until');
 
-// https://dev.to/isalevine/three-ways-to-retrieve-json-from-the-web-using-node-js-3c88
-// use second answer's procedure 
-// https://stackoverflow.com/questions/18953499/youtube-api-to-fetch-all-videos-on-a-channel/27872244#27872244
 const API_KEY = process.env.TOKEN;
-
-// currently only works for one channel :') need to do a nested until maybe?
-const SAMPLE_CHANNEL_IDS = [
-    'UC84Zkx_92divh3h4sKXeDew', //seodam (125)
-    // 'UCKetFmtqdh-kn915crdf72A' //Nino's Home (~25)
-];
 
 // String -> String
 // Stuff channelID into query string for "Uploads" playlist for given channel
@@ -67,35 +58,6 @@ function search(videos, items) {
     return filteredVideos;
 }
 
-// TEST USING
-// https://developers.google.com/calendar/v3/pagination
-// https://www.youtube.com/watch?v=OomY1d4AWzs&list=UU84Zkx_92divh3h4sKXeDew seodam (125 videos) = 3 tries (max 50 results e/ time)
-
-// using page token - https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=50&playlistId=UU84Zkx_92divh3h4sKXeDew&key={APIKEY}&pageToken=CGQQAA
-
-
-/* all video id's for channels
-  => get full descriptions
-     => filter id, description pairs that don't contain all keywords
-
-CHANNEL IDs
-https://www.youtube.com/channel/UCpprBWvibvmOlI8yJOEAAjA
-                                 ^ channel ID
-                                UUpprBWvibvmOlI8yJOEAAjA == all uploads playlist id
-OR
-https://www.youtube.com/user/cookingwithdog
-                             ^ username
-https://www.googleapis.com/youtube/v3/channels?key={API_KEY}&forUsername=cookingwithdog&part=id
-
-Binging with babish
-      https://www.youtube.com/channel/UCJHA_jMfCvEnv-3kRjTCQXw
-https://www.youtube.com/playlist?list=UUJHA_jMfCvEnv-3kRjTCQXw
-
-Doo Piano
-      https://www.youtube.com/channel/UCNoN7dpdAlglcQWUn2pFjDA
-https://www.youtube.com/playlist?list=UUNoN7dpdAlglcQWUn2pFjDA
-*/
-
 router.route('/test').get((req, res) => {
     console.log("hello world!");
     res.json({
@@ -103,7 +65,7 @@ router.route('/test').get((req, res) => {
         age: 3,
         breed: "labrador"
     });
-})
+});
 
 // dummy route for testing
 router.route('/dummydata').post((req, res) => {
@@ -118,26 +80,21 @@ router.route('/dummydata').post((req, res) => {
             desc: "SECOND VID:\nMorbi tempor aliquet tellus, at ultricies ex ultricies sit amet. Quisque aliquam mollis lectus ut posuere. Suspendisse eu ornare urna. Sed tempor libero sit amet odio convallis, at dignissim lacus ullamcorper. Praesent eros turpis, ornare vitae feugiat in, porta non tellus. Pellentesque tristique, ex eu accumsan pharetra, arcu arcu viverra libero, ut posuere elit massa eget ex. Integer gravida interdum augue, ut tempor enim suscipit a. Quisque convallis ante quis pretium aliquam. Quisque scelerisque viverra iaculis. Ut quis facilisis arcu."
         }
     ]);
-})
+});
 
 router.route('/').post((req, res) => {
     // items: array
     const items = req.body.items;
-    
-    console.log(`in search.js, received items: ${JSON.parse(JSON.stringify(items))}`);
-    
-    // faux res.json(req.body.channels);
     const channels = req.body.channels;
-    // const channels = SAMPLE_CHANNEL_IDS;
-    
+
+    console.log(`in search.js, received items: ${JSON.parse(JSON.stringify(items))}`);
+
     // an array with elements that look like the below example
     let allVideos = [];
 
     let channelsProcessed = 0; // https://stackoverflow.com/questions/18983138/callback-after-all-asynchronous-foreach-callbacks-are-completed
 
     channels.forEach(c => {
-    
-        // c = SAMPLE_CHANNEL_IDS[0];
 
         let url = getQueryString(c, '');
         const settings = { method: "GET" };
@@ -155,8 +112,6 @@ router.route('/').post((req, res) => {
                 console.log("on page" + counter);
                 counter++;
                 fetch(url, settings)
-                    // .then(fetchRes => {
-                    //     let json = fetchRes.json();
                     .then(fetchRes => fetchRes.json())
                     .then((json) => {
                         console.log("processing json response...line 109");
@@ -167,10 +122,10 @@ router.route('/').post((req, res) => {
                                 json.hasOwnProperty('items') ? getConciseData(json.items) : []
                         }
                         console.log("processing json response...line 115");
-                        
+
                         // answers.push(answer);
                         answers = answers.concat(answer);
-                    
+
                         if (answer.nextPageToken === '') {
                             console.log("processing json response...line 120");
                             finished = true;
@@ -184,7 +139,7 @@ router.route('/').post((req, res) => {
                             url = getQueryString(c, answer.nextPageToken);
                             console.log("processing json response...line 135");
                         }
-                        next(); // YES IT FIXED EVERYTHING
+                        next(); // <- fixed things!
                     });
             },
             function done(err) {
@@ -198,7 +153,7 @@ router.route('/').post((req, res) => {
                     answers = collapseAndNeaten(answers);
                     // res.json(search(answers, items));
                     allVideos = allVideos.concat(search(answers, items));
-                    
+
                     if (++channelsProcessed === channels.length) {
                         res.json(allVideos);
                         console.log(allVideos);
@@ -206,8 +161,7 @@ router.route('/').post((req, res) => {
                 }
             }
         );
-    })
-    
+    });
 });
 
 module.exports = router;

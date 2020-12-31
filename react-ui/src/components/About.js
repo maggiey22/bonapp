@@ -9,6 +9,6 @@ export default class About extends Component {
                 {/* <img src={eggy} alt="Eggy logo!" className="App-logo"/> */}
                 <p>You are on the About component!</p>
             </div>
-        )
+        );
     }
 }

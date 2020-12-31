@@ -9,7 +9,7 @@ function Settings() {
             <p>ingredients: {JSON.stringify(ls.get('ingredients'))}</p>
             <p>results: {JSON.stringify(ls.get('results'))}</p>
         </div>
-    )
+    );
 }
 
 export default Settings;

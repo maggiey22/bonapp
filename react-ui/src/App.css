@@ -1,100 +1,90 @@
-/* TODO - use portable css (cross-browser friendly) aka no magic css numbers :') */
-/* TODO - code cleanup - reorder css classes in logical order */
-/* TODO - convert some css classes to id's where id is sufficient */
-/* TODO - accessibility */
-
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .tabs {
-  filter: drop-shadow(0px 4px 5px #AB9B76);
-  padding-top: 20px;
+    filter: drop-shadow(0px 4px 5px #AB9B76);
+    padding-top: 20px;
 }
 
-/* this didn't work :[] probably because css needs to override here
-#abc .text-field {
-  ...
-} */
-
 .list {
-  /* stripes! */
-  background: repeating-linear-gradient(
-  0deg,
-  #A3D5E4,
-  #A3D5E4 3px,
-  #F5F5F5 3px,
-  #F5F5F5 33px
-);
-  background-size: 100%;
-  min-height: 300px;
-  width: 100%;
-  max-height: 300px;
-  overflow: scroll;
+    /* stripes! */
+    background: repeating-linear-gradient(
+        0deg,
+        #A3D5E4,
+        #A3D5E4 3px,
+        #F5F5F5 3px,
+        #F5F5F5 33px
+    );
+    background-size: 100%;
+    min-height: 300px;
+    width: 100%;
+    max-height: 300px;
+    overflow: scroll;
 }
 
 .right-col {
-  font-size: 25px;
-  font-weight: 600;
+    font-size: 25px;
+    font-weight: 600;
 }
 
 #instructions { 
-  text-align: center;
-  color: #515151;
+    text-align: center;
+    color: #515151;
 }
 
 .pg1-btn {
-  font-size: 25px;
-  font-weight: 700;
-  color: white;
-  background: #A3D5E4;
-  border-radius: 15px;
-  width: 200px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  margin-bottom: 10px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+    background: #A3D5E4;
+    border-radius: 15px;
+    width: 200px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-bottom: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .pg1-btn:hover {
-  background: #bbe1ec;
+    background: #bbe1ec;
 }
 
 .file-bkgd {
-  margin: auto;
-  padding: 20px;
-  z-index: -3;
-  background: #E7E0CE;
-  border-radius: 24px;
-  min-width: 600px;
-  height: 380px;
+    margin: auto;
+    padding: 20px;
+    z-index: -3;
+    background: #E7E0CE;
+    border-radius: 24px;
+    min-width: 600px;
+    height: 380px;
 }
 
 .search {
-  display: flex;
+    display: flex;
 }
 
 .App-header {
-  padding-bottom: 12px;
+    padding-bottom: 12px;
 }
 
 .App-homelink {
-  font-size: 45px;
-  font-weight: 700;
+    font-size: 45px;
+    font-weight: 700;
 }
 
 .App-logo {
-  height: 94px;
-  width: 93px;
-  vertical-align: middle;
-  padding-right: 10px;
+    height: 94px;
+    width: 93px;
+    vertical-align: middle;
+    padding-right: 10px;
 }
 
 a {
-  color: #515151;
-  text-decoration: none;
+    color: #515151;
+    text-decoration: none;
 }
 
 a:hover {
-  color: #CF9F33;
+    color: #CF9F33;
 }
