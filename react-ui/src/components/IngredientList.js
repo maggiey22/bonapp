@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Ingredient from './Ingredient';
-// import axios from 'axios';
 
 // const isDev = process.env.NODE_ENV !== 'production';
 

@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './Navbar.css';
 
-export default class Navbar extends Component {
-    // isActive = (tab) => window.location.pathname === tab;
+function Navbar(props) {
+    // console.log(this.props.activeTab); TODO - why does it print twice consecutively?
+    return (
+        <nav className="navbar">
+            <span><NavLink className="tab" activeClassName="active-tab" exact to="/">Search</NavLink></span>
+            <span><NavLink className="tab" activeClassName="active-tab" to="/recipes" onClick={(e) => { e.preventDefault(); props.search();}}>Recipes</NavLink></span>
+            <span><NavLink className="tab" activeClassName="active-tab" to="/settings">Settings</NavLink></span>
+            <span><NavLink className="tab" activeClassName="active-tab" to="/about">About</NavLink></span>
+        </nav>
+    );
 
-    //isActive={this.isActive('/')}
-    render() {
-        // console.log(this.props.activeTab); TODO - why does it print twice consecutively?
-        return (
-            <nav className="navbar">
-                <span><NavLink className="tab" activeClassName="active-tab" exact to="/">Search</NavLink></span>
-                <span><NavLink className="tab" activeClassName="active-tab" to="/recipes">Recipes</NavLink></span>
-                <span><NavLink className="tab" activeClassName="active-tab" to="/settings">Settings</NavLink></span>
-                <span><NavLink className="tab" activeClassName="active-tab" to="/about">About</NavLink></span>
-            </nav>
-        );
-    }
 }
+
+export default Navbar;
