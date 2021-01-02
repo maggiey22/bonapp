@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.list {
+.ingred-list {
     /* stripes! */
     background: repeating-linear-gradient(
         0deg,
