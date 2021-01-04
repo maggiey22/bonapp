@@ -13,7 +13,33 @@ import Settings from './components/Settings';
 import About from './components/About';
 
 const BASE_SERVER_URL = 'http://localhost:5000';
-const DEFAULT_CHANNELS = [{id: 0, name: 'UC84Zkx_92divh3h4sKXeDew'}, {id: 1, name: 'UCK27TX8CB0yFnXPNZRbIK5g'}];
+// const DEFAULT_CHANNELS = [{id: 0, name: 'UC84Zkx_92divh3h4sKXeDew'}, {id: 1, name: 'UCK27TX8CB0yFnXPNZRbIK5g'}];
+const DEFAULT_CHANNELS = [
+    {
+        id: 0,
+        name: '서담SEODAM',
+        url: 'https://www.youtube.com/channel/UC84Zkx_92divh3h4sKXeDew',
+        channelID: 'UC84Zkx_92divh3h4sKXeDew'
+    },
+    {
+        id: 1,
+        name: `Nino's Home`,
+        url: 'https://www.youtube.com/channel/UCKetFmtqdh-kn915crdf72A',
+        channelID: 'UCKetFmtqdh-kn915crdf72A'
+    },
+    {
+        id: 2,
+        name: 'Cooking with Dog',
+        url: 'https://www.youtube.com/user/cookingwithdog',
+        channelID: 'UCpprBWvibvmOlI8yJOEAAjA'
+    },
+    {
+        id: 3,
+        name: 'Food Wishes',
+        url: 'https://www.youtube.com/user/foodwishes',
+        channelID: 'UCRIZtPl9nb9RiXc9btSTQNw'
+    }
+];
 
 const Page_404 = () => (
     <div>
@@ -67,8 +93,8 @@ export default class App extends Component {
                 items: this.state.ingredients,
                 channels: this.state.channels
             }
-            // axios.post(`${BASE_SERVER_URL}/search`, body)
-            axios.post(`${BASE_SERVER_URL}/search/dummydata`, body)
+            axios.post(`${BASE_SERVER_URL}/search`, body)
+            // axios.post(`${BASE_SERVER_URL}/search/dummydata`, body)
                 .then(res => {
                     this.setState((prevState) => ({
                             ...prevState,
@@ -117,8 +143,8 @@ export default class App extends Component {
     }
 
     addChannel = (url) => {
-        axios.post(`${BASE_SERVER_URL}/search/dummychanneldata`, { giveValid: true, url })
-        // axios.post(`${BASE_SERVER_URL}/search/validate_channel`, { url })
+        // axios.post(`${BASE_SERVER_URL}/search/dummychanneldata`, { giveValid: true, url })
+        axios.post(`${BASE_SERVER_URL}/search/validate_channel`, { url })
             .then(res => {
                 /*
                 answer is one of:

@@ -18,8 +18,8 @@ export default class About extends Component {
                         Add channels to search in <a href="/settings">Settings</a>.<br/>
                         See search results in <a href="/recipes">Recipes</a>.<br/><br/>
                         <div id="more-info">
-                            Made with React, Node.js, and YouTube API v3<br/>
-                            Source code on <a href="https://github.com/maggiey22/bonapp">GitHub</a>
+                            Made with React, Node.js, and YouTube API v3.<br/>
+                            Source code on <a href="https://github.com/maggiey22/bonapp">GitHub</a>!
                         </div>
                     </div>
                 </div>

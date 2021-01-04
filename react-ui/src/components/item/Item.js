@@ -15,7 +15,7 @@ export default class Item extends Component {
         return (
             <div id={`${className}-${id}`} className={`item ${className}-item`}>
                 <button id={`del-${className}-btn-${id}`} className={`del-btn del-${className}-btn`} onClick={this.deleteItem}>X</button>
-                {name}
+                {(className === 'channel') ? <a href={this.props.item.url}>{name}</a> : name}
             </div>
         );
     }
