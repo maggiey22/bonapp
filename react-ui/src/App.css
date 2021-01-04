@@ -62,3 +62,29 @@ a:hover {
 .blue-btn:hover {
     background: #bbe1ec;
 }
+
+.note, .channel-item {
+    background: #FFEDC5;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    white-space: pre-line;
+}
+
+.col {
+    margin-top: 10px;
+    text-align: left;
+    padding: 10px;
+    overflow: scroll;
+    flex: 50%; 
+    width: 50%;
+}
+
+.left-col {
+    margin-left: 30px;
+    line-height: 150%;
+}
+
+.right-col {
+    margin-top: 39px;
+    margin-left: 10px;
+    margin-right: 30px;
+}

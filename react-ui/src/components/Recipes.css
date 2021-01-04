@@ -5,25 +5,7 @@
     display: flex;
 }
 
-.col {
-    margin-top: 10px;
-    text-align: left;
-    padding: 10px;
-    overflow: scroll;
-    flex: 50%; 
-    width: 50%;
-}
 
-.left-col {
-    margin-left: 30px;
-    line-height: 150%;
-}
-
-.right-col {
-    margin-top: 39px;
-    margin-left: 10px;
-    margin-right: 30px;
-}
 
 .video {
     padding-bottom: 10px;
@@ -40,12 +22,9 @@
     vertical-align: middle;
 }
 
-.ingredients-note {
+#ingredients-note {
     height: 270px;
     overflow: scroll;
-    background: #FFEDC5;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    white-space: pre-line;
 }
 
 #ingredients {

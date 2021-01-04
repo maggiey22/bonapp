@@ -117,8 +117,8 @@ export default class App extends Component {
     }
 
     addChannel = (url) => {
-        // axios.post(`${BASE_SERVER_URL}/search/dummychanneldata`, { giveValid: false, url })
-        axios.post(`${BASE_SERVER_URL}/search/validate_channel`, { url })
+        axios.post(`${BASE_SERVER_URL}/search/dummychanneldata`, { giveValid: true, url })
+        // axios.post(`${BASE_SERVER_URL}/search/validate_channel`, { url })
             .then(res => {
                 /*
                 answer is one of:
@@ -131,7 +131,7 @@ export default class App extends Component {
                     this.setState(prevState => ({
                         ...prevState,
                         channelCtr: prevState.channelCtr + 1,
-                        channels: [...prevState.channels, { id: prevState.channelCtr, name: url, title: answer.channelName, channelID: answer.channelID }]
+                        channels: [...prevState.channels, { id: prevState.channelCtr, name: answer.channelName, url, channelID: answer.channelID }]
                     }),
                     () => {
                         console.log('Added a channel!')
@@ -140,7 +140,7 @@ export default class App extends Component {
                         ls.set('isUpdated', false);
                     });
                 } else {
-                    alert('Invalid channel URL.');
+                    alert(`Invalid channel URL: ${answer.reason}`);
                 }
             });
     }

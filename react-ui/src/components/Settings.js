@@ -13,7 +13,7 @@ function Settings(props) {
                 <AddItem add={props.addChannel} placeholder="Add a YouTube channel URL..." className="channel"/>
                 <button className="blue-btn" id="clear-settings-btn" onClick={props.resetChannels}>Clear list</button>
             </div>
-            <div className="xxx" id="channel-list-container">
+            <div id="channel-list-container">
                 <ItemList className="channel" items={props.channels} deleteItem={props.deleteChannel}/> 
             </div>
         </div>

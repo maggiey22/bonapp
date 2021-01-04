@@ -11,8 +11,11 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-width: 0px;
+    box-shadow: 3px 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 #channel-field {
     float: left;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
 }

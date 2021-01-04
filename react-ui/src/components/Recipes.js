@@ -20,7 +20,7 @@ function Recipes() {
                 }
             </div>
                 <div className="col right-col">
-                <div className="ingredients-note">
+                <div className="note" id="ingredients-note">
                     <p id="ingredients">{text}</p>
                 </div>
             </div>

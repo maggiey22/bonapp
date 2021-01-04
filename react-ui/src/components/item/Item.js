@@ -13,7 +13,7 @@ export default class Item extends Component {
         const { id, name } = this.props.item;
 
         return (
-            <div id={`${className}-${id}`} className={className}>
+            <div id={`${className}-${id}`} className={`item ${className}-item`}>
                 <button id={`del-${className}-btn-${id}`} className={`del-btn del-${className}-btn`} onClick={this.deleteItem}>X</button>
                 {name}
             </div>

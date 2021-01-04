@@ -82,17 +82,26 @@ router.route('/dummydata').post((req, res) => {
     ]);
 });
 
+const DUMMY_CHANNELS = [
+    {
+        valid: true,
+        channelName: "Binging with Babish",
+        channelID: "abc123"
+    },
+    {
+        valid: true,
+        channelName: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        channelID: "123abc"
+    },
+]
 router.route('/dummychanneldata').post((req, res) => {
     console.log(req.body.url);
     if (req.body.giveValid) {
-        res.json({
-            valid: true,
-            channelName: "Binging with Babish",
-            channelID: "abc123"
-        });
+        res.json(DUMMY_CHANNELS[0]);
     } else {
         res.json({
-            valid: false
+            valid: false,
+            reason: 'Unknown path in YouTube URL.'
         });
     }
 });
@@ -109,7 +118,7 @@ router.route('/validate_channel').post((req, res) => {
         console.log(url);
         console.log(pathParts);
         let queryParam = '';
-        let queryURL = '';
+        // let queryURL = '';
         if (urlObj.hostname === 'www.youtube.com') {
             // PARTY SHIRT because https://www.youtube.com/user/undefined => PARTY SHIRT's channel. Clever marketing...
             if (urlObj.pathname.startsWith('/channel')) {
@@ -124,13 +133,14 @@ router.route('/validate_channel').post((req, res) => {
             } else if (urlObj.pathname.startsWith('/user')) {
                 queryParam = `&forUsername=${pathParts[2]}`;
             } else {
-                throw new Error('Cannot validate YouTube URL.');
+                throw new Error('Unknown path in YouTube URL.');
             }
         } else {
             throw new Error('Not a YouTube channel.');
         }
         // if (queryParam && queryParam !== '') {
-            queryURL = (queryURL === '') ? `https://youtube.googleapis.com/youtube/v3/channels?part=snippet${queryParam}&key=${API_KEY}` : queryURL;
+            // queryURL = (queryURL === '') ? `https://youtube.googleapis.com/youtube/v3/channels?part=snippet${queryParam}&key=${API_KEY}` : queryURL;
+            const queryURL = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet${queryParam}&key=${API_KEY}`;
             console.log(queryURL);
             console.log(queryParam);
             fetch(queryURL, settings)
@@ -150,9 +160,10 @@ router.route('/validate_channel').post((req, res) => {
             // .err((err) => console.log(err));
         // }
     } catch (err) {
-        console.log(err);
+        console.log(err.message);
         res.json({
-            valid: false
+            valid: false,
+            reason: err.message
         });
     }
 });
@@ -169,8 +180,8 @@ router.route('/').post((req, res) => {
 
     let channelsProcessed = 0; // https://stackoverflow.com/questions/18983138/callback-after-all-asynchronous-foreach-callbacks-are-completed
 
-    channels.forEach(c => {
-
+    channels.forEach(channel => {
+        c = channel.channelID;
         let url = getQueryString(c, '');
         const settings = { method: "GET" };
 
