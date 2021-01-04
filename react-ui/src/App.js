@@ -28,31 +28,31 @@ const Page_404 = () => (
 export default class App extends Component {
     state = {
         // counters to temporarily get around unique key issue - too many re-renders with uuid / hashing object should use a set
-        counter: 0,         // TODO - rename to ingredCtr
-        channelCtr: 0,
+        ingredCtr:   0,     // counters that always count up (when non-zero, not guaranteed to be size of array)
+        channelCtr:  0,
         ingredients: [],    // TODO - use map instead
-        channels: [],       // TODO - ideally I would use a set, since channel IDs are unique already
-        results: [],        // cached search results
-        isUpdated: false,   // whether results are sync'd up with input
+        channels:    [],    // TODO - ideally I would use a set, since channel IDs are unique already
+        results:     [],    // cached search results
+        isUpdated:   false, // whether results are sync'd up with input
     }
 
     componentDidMount() {
         this.setState(() => ({
-                counter: ls.get('counter') || 0,
-                channelCtr: ls.get('channelCtr') || 0,
+                ingredCtr: ls.get('ingredCtr')     || 0,
+                channelCtr: ls.get('channelCtr')   || 0,
                 ingredients: ls.get('ingredients') || [],
-                channels: ls.get('channels') || [],
-                results: ls.get('results') || [],
-                isUpdated: ls.get('isUpdated') || false,
+                channels: ls.get('channels')       || [],
+                results: ls.get('results')         || [],
+                isUpdated: ls.get('isUpdated')     || false,
             }),
             () => {
                 // set undefined properties in local storage
-                if (!ls.get('counter')) ls.set('counter', 0);
-                if (!ls.get('channelCtr')) ls.set('channelCtr', 0);
+                if (!ls.get('ingredCtr'))   ls.set('ingredCtr', 0);
+                if (!ls.get('channelCtr'))  ls.set('channelCtr', 0);
                 if (!ls.get('ingredients')) ls.set('ingredients', []);
-                if (!ls.get('channels')) ls.set('channels', []);
-                if (!ls.get('results')) ls.set('results', []);
-                if (!ls.get('isUpdated')) ls.set('isUpdated', false);
+                if (!ls.get('channels'))    ls.set('channels', []);
+                if (!ls.get('results'))     ls.set('results', []);
+                if (!ls.get('isUpdated'))   ls.set('isUpdated', false);
 
                 console.log('App mounted');
             }
@@ -104,11 +104,11 @@ export default class App extends Component {
     addIngredient = (name) => {
         this.setState(prevState => ({
                 ...prevState,
-                counter: prevState.counter + 1,
-                ingredients: [...prevState.ingredients, { id: prevState.counter, name }]
+                ingredCtr: prevState.ingredCtr + 1,
+                ingredients: [...prevState.ingredients, { id: prevState.ingredCtr, name }]
             }),
             () => {
-                ls.set('counter', this.state.counter)
+                ls.set('ingredCtr', this.state.ingredCtr)
                 ls.set('ingredients', this.state.ingredients);
                 ls.set('isUpdated', false);
             }
@@ -130,12 +130,12 @@ export default class App extends Component {
     resetIngredients = () => {
         this.setState(prevState => ({
                 ...prevState,
-                counter: 0,
+                ingredCtr: 0,
                 ingredients: [],
                 results: []
             }),
             () => {
-                ls.set('counter', 0);
+                ls.set('ingredCtr', 0);
                 ls.set('ingredients', []);
                 ls.set('results', []);
                 ls.set('isUpdated', false);
@@ -144,12 +144,13 @@ export default class App extends Component {
     }
 
     search = () => {
-        if (this.state.ingredients.length === 0 || ls.get('counter') === 0) {
+        // the counters don't always reflect size, except in the case when they're 0
+        if (this.state.ingredCtr === 0 || ls.get('ingredCtr') === 0) {
             alert('Nothing to search for.');
             return null;
         }
 
-        if (this.state.channels.length === 0 || ls.get('channelCtr') === 0) {
+        if (this.state.channelCtr === 0 || ls.get('channelCtr') === 0) {
             console.log('Using default channels');
             this.addDefaultChannels(this.postSearchRequest); // do post request in callback
         } else {
