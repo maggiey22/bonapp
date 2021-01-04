@@ -21,7 +21,7 @@ export default class Search extends Component {
                     <p>Find recipes for the ingredients you already have!</p>
                     <div>
                         <button className="blue-btn" id="search-btn" onClick={this.props.search}>Search</button>
-                        <br></br>
+                        <br/>
                         <button className="blue-btn" id="clear-ingred-btn" onClick={this.props.resetIngredients}>Clear list</button>
                     </div>
                 </div>

@@ -88,3 +88,8 @@ a:hover {
     margin-left: 10px;
     margin-right: 30px;
 }
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+}
