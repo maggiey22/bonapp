@@ -116,19 +116,33 @@ export default class App extends Component {
         );
     }
 
-    addChannel = (channel) => {
-        this.setState(prevState => ({
-                ...prevState,
-                channelCtr: prevState.channelCtr + 1,
-                channels: [...prevState.channels, { id: prevState.channelCtr, name: channel }]
-            }),
-            () => {
-                console.log('Added a channel!')
-                ls.set('channelCtr', this.state.channelCtr);
-                ls.set('channels', this.state.channels);
-                ls.set('isUpdated', false);
-            }
-        );
+    addChannel = (url) => {
+        // axios.post(`${BASE_SERVER_URL}/search/dummychanneldata`, { giveValid: false, url })
+        axios.post(`${BASE_SERVER_URL}/search/validate_channel`, { url })
+            .then(res => {
+                /*
+                answer is one of:
+                - { valid: false }
+                - { valid: true, channelName: "Binging with Babish", channelID: "abc123" }
+                */
+                const answer = res.data;
+
+                if (answer.valid) {
+                    this.setState(prevState => ({
+                        ...prevState,
+                        channelCtr: prevState.channelCtr + 1,
+                        channels: [...prevState.channels, { id: prevState.channelCtr, name: url, title: answer.channelName, channelID: answer.channelID }]
+                    }),
+                    () => {
+                        console.log('Added a channel!')
+                        ls.set('channelCtr', this.state.channelCtr);
+                        ls.set('channels', this.state.channels);
+                        ls.set('isUpdated', false);
+                    });
+                } else {
+                    alert('Invalid channel URL.');
+                }
+            });
     }
 
     deleteIngredient = (id) => {
@@ -189,14 +203,12 @@ export default class App extends Component {
     }
 
     search = () => {
-        // the counters don't always reflect size, except in the case when they're 0
-        // TODO - change back to checking size of actual array since this doesn't work once you delete items
-        if (this.state.ingredCtr === 0 || ls.get('ingredCtr') === 0) {
+        if (this.state.ingredients.length === 0 || ls.get('ingredients').length === 0) {
             alert('Nothing to search for.');
             return null;
         }
 
-        if (this.state.channelCtr === 0 || ls.get('channelCtr') === 0) {
+        if (this.state.channels.length === 0 || ls.get('channels').length === 0) {
             console.log('Using default channels');
             this.addDefaultChannels(this.postSearchRequest); // do post request in callback
         } else {

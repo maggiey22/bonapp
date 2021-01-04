@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('url');
 
 const router = require('express').Router();
 const fetch = require('node-fetch');
@@ -79,6 +80,81 @@ router.route('/dummydata').post((req, res) => {
             desc: "SECOND VID:\nMorbi tempor aliquet tellus, at ultricies ex ultricies sit amet. Quisque aliquam mollis lectus ut posuere. Suspendisse eu ornare urna. Sed tempor libero sit amet odio convallis, at dignissim lacus ullamcorper. Praesent eros turpis, ornare vitae feugiat in, porta non tellus. Pellentesque tristique, ex eu accumsan pharetra, arcu arcu viverra libero, ut posuere elit massa eget ex. Integer gravida interdum augue, ut tempor enim suscipit a. Quisque convallis ante quis pretium aliquam. Quisque scelerisque viverra iaculis. Ut quis facilisis arcu."
         }
     ]);
+});
+
+router.route('/dummychanneldata').post((req, res) => {
+    console.log(req.body.url);
+    if (req.body.giveValid) {
+        res.json({
+            valid: true,
+            channelName: "Binging with Babish",
+            channelID: "abc123"
+        });
+    } else {
+        res.json({
+            valid: false
+        });
+    }
+});
+
+router.route('/validate_channel').post((req, res) => {
+    const url = req.body.url;
+
+    try {
+        const urlObj = new URL(url);
+        const settings = { method: "GET" };
+        // https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=${username}&key=${API_KEY}
+        // https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${API_KEY}
+        const pathParts = urlObj.pathname.split('/');
+        console.log(url);
+        console.log(pathParts);
+        let queryParam = '';
+        let queryURL = '';
+        if (urlObj.hostname === 'www.youtube.com') {
+            // PARTY SHIRT because https://www.youtube.com/user/undefined => PARTY SHIRT's channel. Clever marketing...
+            if (urlObj.pathname.startsWith('/channel')) {
+                queryParam = `&id=${pathParts[2]}`;
+            /*
+            workaround not working.
+            } else if (urlObj.pathname.startsWith('/c')) { //https://stackoverflow.com/questions/37267324/how-to-get-youtube-channel-details-using-youtube-data-api-if-channel-has-custom/37947865#37947865
+                // queryParam = `%2Cid&q=${pathParts[2]}&type=channel`;
+                console.log(pathParts[2]);
+                queryURL = `https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=${pathParts[2]}&type=channel&key=${API_KEY}`;
+            */
+            } else if (urlObj.pathname.startsWith('/user')) {
+                queryParam = `&forUsername=${pathParts[2]}`;
+            } else {
+                throw new Error('Cannot validate YouTube URL.');
+            }
+        } else {
+            throw new Error('Not a YouTube channel.');
+        }
+        // if (queryParam && queryParam !== '') {
+            queryURL = (queryURL === '') ? `https://youtube.googleapis.com/youtube/v3/channels?part=snippet${queryParam}&key=${API_KEY}` : queryURL;
+            console.log(queryURL);
+            console.log(queryParam);
+            fetch(queryURL, settings)
+            .then(fetchRes => fetchRes.json())
+            .then((json) => {
+                // res.json(json);
+                if (json.hasOwnProperty('items') && json.pageInfo.totalResults > 0) {
+                    res.json(({
+                        valid: true,
+                        channelName: json.items[0].snippet.title,
+                        channelID: json.items[0].id
+                    }));
+                } else {
+                    throw new Error('Cannot identify YouTube channel.');
+                }
+            });
+            // .err((err) => console.log(err));
+        // }
+    } catch (err) {
+        console.log(err);
+        res.json({
+            valid: false
+        });
+    }
 });
 
 router.route('/').post((req, res) => {
