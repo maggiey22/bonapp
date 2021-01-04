@@ -25,7 +25,8 @@ export default class AddItem extends Component {
             <form onSubmit={this.onSubmit}>
                 <span>
                     <input
-                        className={this.props.className}
+                        id={`${this.props.className}-field`}
+                        className="input-field"
                         autoFocus
                         type="text"
                         name="name"

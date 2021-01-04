@@ -28,7 +28,7 @@ const Page_404 = () => (
 export default class App extends Component {
     state = {
         // counters to temporarily get around unique key issue - too many re-renders with uuid / hashing object should use a set
-        ingredCtr:   0,     // counters that always count up (when non-zero, not guaranteed to be size of array)
+        ingredCtr:   0,     // counters that always count up (not guaranteed to be size of array)
         channelCtr:  0,
         ingredients: [],    // TODO - use map instead
         channels:    [],    // TODO - ideally I would use a set, since channel IDs are unique already
@@ -101,6 +101,7 @@ export default class App extends Component {
         );
     }
 
+    // TODO - lots of duplication with ingredient/channel methods
     addIngredient = (name) => {
         this.setState(prevState => ({
                 ...prevState,
@@ -115,6 +116,21 @@ export default class App extends Component {
         );
     }
 
+    addChannel = (channel) => {
+        this.setState(prevState => ({
+                ...prevState,
+                channelCtr: prevState.channelCtr + 1,
+                channels: [...prevState.channels, { id: prevState.channelCtr, name: channel }]
+            }),
+            () => {
+                console.log('Added a channel!')
+                ls.set('channelCtr', this.state.channelCtr);
+                ls.set('channels', this.state.channels);
+                ls.set('isUpdated', false);
+            }
+        );
+    }
+
     deleteIngredient = (id) => {
         this.setState(prevState => ({
                 ...prevState,
@@ -122,6 +138,19 @@ export default class App extends Component {
             }),
             () => {
                 ls.set('ingredients', this.state.ingredients);
+                ls.set('isUpdated', false);
+            }
+        );
+    }
+
+    deleteChannel = (id) => {
+        this.setState(prevState => ({
+                ...prevState,
+                channels: prevState.channels.filter(c => c.id !== id)
+            }),
+            () => {
+                console.log(`Deleted channel ${id}`);
+                ls.set('channels', this.state.channels);
                 ls.set('isUpdated', false);
             }
         );
@@ -143,8 +172,25 @@ export default class App extends Component {
         );
     }
 
+    resetChannels = () => {
+        this.setState(prevState => ({
+                ...prevState,
+                channelCtr: 0,
+                channels: [],
+                results: [],
+            }), () => {
+                console.log('Channel settings reset.');
+                ls.set('channelCtr', 0)
+                ls.set('channels', []);
+                ls.set('results', []);
+                ls.set('isUpdated', false);
+            }
+        );
+    }
+
     search = () => {
         // the counters don't always reflect size, except in the case when they're 0
+        // TODO - change back to checking size of actual array since this doesn't work once you delete items
         if (this.state.ingredCtr === 0 || ls.get('ingredCtr') === 0) {
             alert('Nothing to search for.');
             return null;
@@ -184,7 +230,15 @@ export default class App extends Component {
                                     />
                                 )}/>
                                 <Route path="/recipes" exact component={Recipes} />
-                                <Route path="/settings" exact component={Settings} />
+                                <Route path="/settings" exact render={(props) => (
+                                    <Settings
+                                        channels={this.state.channels}
+                                        addChannel={this.addChannel}
+                                        deleteChannel={this.deleteChannel}
+                                        resetChannels={this.resetChannels}
+                                        {...props}
+                                    />
+                                )}/>
                                 <Route path="/about" exact component={About} />
                                 <Route component={Page_404} />
                             </Switch>

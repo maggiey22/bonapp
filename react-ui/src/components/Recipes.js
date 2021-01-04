@@ -14,7 +14,7 @@ function Recipes() {
                 {results.length} results found.
                 {results.map((vid) =>
                     <div className="video" key={vid.id}>
-                        <button className="info-btn" onClick={() => setText(`${vid.desc}`)}>?</button>
+                        <button className="blue-btn" id="info-btn" onClick={() => setText(`${vid.desc}`)}>?</button>
                         <iframe title="Video title here" width="276" height="156" frameBorder="0" src={`https://www.youtube.com/embed/${vid.id}`} allow="encrypted-media" allowFullScreen></iframe>
                     </div>)
                 }

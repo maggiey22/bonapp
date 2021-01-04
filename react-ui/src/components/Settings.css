@@ -1,0 +1,35 @@
+#title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#settings-container {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/* To style AddItem element, see channel-field in AddItem.css */
+
+#channel-field {
+    width: 75%;
+}
+
+#clear-settings-btn {
+    vertical-align: middle;
+    float: right;
+    width: 20%;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+/* https://stackoverflow.com/questions/19089933/how-to-position-two-elements-side-by-side-using-css */
+.clear-prev-css {
+    clear:both;
+}
+
+#channel-list-container {
+    clear: both;
+    overflow: scroll;
+    height: 240px;
+}

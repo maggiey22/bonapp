@@ -3,7 +3,7 @@
     font-size: 24px;
 }
 
-.del-ingred-btn {
+.del-btn {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     font-size: 20px;
@@ -14,6 +14,6 @@
     cursor: pointer;
 }
 
-.del-ingred-btn:hover {
+.del-btn:hover {
     color: #F56D68;
 }

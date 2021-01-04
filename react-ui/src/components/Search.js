@@ -11,7 +11,7 @@ export default class Search extends Component {
             <div className="search">
                 <div className="col left-col">
                     <React.Fragment>
-                        <AddItem add={this.props.addIngredient} placeholder="Add an ingredient..." className="ingredient-field"/>
+                        <AddItem add={this.props.addIngredient} placeholder="Add an ingredient..." className="ingredient"/>
                         <div className="list">
                             <ItemList className="ingredient" items={this.props.ingredients} deleteItem={this.props.deleteIngredient}/> 
                         </div>
@@ -20,9 +20,9 @@ export default class Search extends Component {
                 <div id="instructions" className="col right-col">
                     <p>Find recipes for the ingredients you already have!</p>
                     <div>
-                        <button className="pg1-btn" id="search-btn" onClick={this.props.search}>Search</button>
+                        <button className="blue-btn" id="search-btn" onClick={this.props.search}>Search</button>
                         <br></br>
-                        <button className="pg1-btn" id="clear-btn" onClick={this.props.resetIngredients}>Clear list</button>
+                        <button className="blue-btn" id="clear-ingred-btn" onClick={this.props.resetIngredients}>Clear list</button>
                     </div>
                 </div>
             </div>

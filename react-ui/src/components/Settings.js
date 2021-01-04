@@ -1,13 +1,21 @@
 import React from 'react';
-import ls from 'local-storage';
 
-function Settings() {
+import './Settings.css';
+
+import AddItem from './item/AddItem';
+import ItemList from './item/ItemList';
+
+function Settings(props) {
     return (
-        <div>
-            <p>You are on the Settings component!</p>
-            <p>counter: {ls.get('ingredCtr')}</p>
-            <p>ingredients: {JSON.stringify(ls.get('ingredients'))}</p>
-            <p>results: {JSON.stringify(ls.get('results'))}</p>
+        <div id="settings-container">
+            <p id="title">Channels to Search</p>
+            <div>
+                <AddItem add={props.addChannel} placeholder="Add a YouTube channel URL..." className="channel"/>
+                <button className="blue-btn" id="clear-settings-btn" onClick={props.resetChannels}>Clear list</button>
+            </div>
+            <div className="xxx" id="channel-list-container">
+                <ItemList className="channel" items={props.channels} deleteItem={props.deleteChannel}/> 
+            </div>
         </div>
     );
 }
