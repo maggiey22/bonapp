@@ -48,7 +48,7 @@ Data is stored in local storage, sent to the backend in a POST request, then the
 
 To add a channel, the URL is first sent to the backend for validation, with additional useful information returned if the URL is valid.
 
-To search, an async while loop (`async/until`) grabs all the videos from each channel's master 'Uploads from X' playlist (e.g. https://www.youtube.com/playlist?list=UU84Zkx_92divh3h4sKXeDew). It's just array and string manipulation from there on out!
+To search, an async while loop (`async/until`) grabs all the videos from each channel's master 'Uploads from X' playlist (e.g. https://www.youtube.com/playlist?list=UU84Zkx_92divh3h4sKXeDew). The tricky part comes from the fact that the YouTube API splits results across pages, and you have to use a nextPageToken to move to the next page. It's just array and string manipulation from there on out!
 
 (In hindsight, I could have probably used some form of native JavaScript `async/await` with a `for` loop, but I didn't even know what that was when I wrote the search endpoint 😛)
 
