@@ -1,17 +1,19 @@
-# 🍳 YouTube Recipe Finder
+# YouTube Recipe Finder
 
-<img align="left" width="150" height="150" src="react-ui/src/eggy.png" title="logo by me!" alt="fried egg magnifying glass" style="transform: scaleX(-1); margin-right: 40px; margin-left: 200px">
+<p align="center">
+<img align="left" height="300" src="react-ui/src/eggy.png" title="logo by me!" alt="fried egg magnifying glass" style="transform: scaleX(-1); margin-right: 40px; margin-left: 20px">
 
 ### Made with React, Node.js, and YouTube API v3.
-  ### 📐 [Design](#design) <br/>
-  ### 🚀 [Future Plans / 🐛 Known Bugs](#future-plans-/-known-bugs) <br/>
-  ### 🔮 [Try it!](#try-it)
-  ### 📕 [Resources Consulted](#resources-consulted) <br/>
-  ### 🥐 [Cooking channel recommendations](#🥘-Bon-Appétit!) <br/>
+  #### 📐 [Design](#design) <br/>
+  #### [🚀 Future plans / 🐛 Known bugs](#future-plans--known-bugs) <br/>
+  #### 🔮 [Try it!](#try-it)
+  #### 📕 [Resources consulted](#resources-consulted) <br/>
+  #### 🥐 [Cooking channel recommendations](#-bon-appétit) <br/>
+</p>
 
 <br/>
 
-<div style="text-align:center">
+<p align="center">
   <img src="assets/search.gif" height="500">
   <img src="assets/settings.gif" height="540">
   <br/>
@@ -20,9 +22,7 @@
   <img src="assets/2.2.png" height="200">
   <img src="assets/3.png" height="200">
   <img src="assets/4.png" height="200">
-</div>
-
-_______________________
+</p>
 
 ## Design
 
@@ -52,14 +52,10 @@ To search, an async while loop (`async/until`) grabs all the videos from each ch
 
 (In hindsight, I could have probably used some form of native JavaScript `async/await` with a `for` loop, but I didn't even know what that was when I wrote the search endpoint 😛)
 
-<br/>
-
 ## Future Plans / Known Bugs
 
 - Deploying to Heroku (after I try to minimize API calls. It adds up fast 😪)
 - /c/ type YouTube channel URLs do not work - not supported in YouTube API and I couldn't make the workaround work.
-
-<br/>
 
 ## Try it
 
@@ -118,8 +114,6 @@ npm install package-name --save
   - Debug CSS: Inspect element > Styles
   - Local Storage: Open Inspector > in top navbar, Application > Local Storage > sitename
 
-<br/>
-
 ## Resources Consulted
 - [Traversy Media - React JS Crash Course](https://www.youtube.com/watch?v=sBws8MSXN7A)
 - [FreeCodeCamp.org - Learn the Mern Stack by Beau Carnes](https://www.youtube.com/watch?v=7CqJlxBYj-M)
@@ -128,8 +122,6 @@ npm install package-name --save
 - [🦓 CSS stripes](https://css-tricks.com/stripes-css/)
 - [Parsing URLs in JS](https://dmitripavlutin.com/parse-url-javascript/)
 - ...and many more
-
-<br/>
 
 ## 🥘 Bon Appétit!
 ### Check out the cooking channels in the pictures~
