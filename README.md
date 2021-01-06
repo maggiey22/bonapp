@@ -56,6 +56,7 @@ To search, an async while loop (`async/until`) grabs all the videos from each ch
 
 - Deploying to Heroku (after I try to minimize API calls. It adds up fast 😪)
 - /c/ type YouTube channel URLs do not work - not supported in YouTube API and I couldn't make the workaround work.
+- YouTube embedded videos are very slow to load - can be fixed by using [lite-youtube-embed](https://github.com/paulirish/lite-youtube-embed)
 
 ## Try it
 
